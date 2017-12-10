@@ -4,6 +4,7 @@
   "description": "Course by Egghead & Kent C. Dodds: https://egghead.io/courses/advanced-react-component-patterns",
   "private": true,
   "dependencies": {
+    "hoist-non-react-statics": "^2.3.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "^1.0.17"
