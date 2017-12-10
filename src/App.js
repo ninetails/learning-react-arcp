@@ -6,13 +6,13 @@ import Switch from './components/Switch'
 const App = () => (
   <Toggle
     onToggle={on => console.log('toggle', on)}
-    render={({ on, toggle, togglerProps }) => [
+    render={({ on, toggle, getTogglerProps }) => [
       on
         ? 'The button is on'
         : 'The button is off',
-      <Switch key='switch' id="switch" on={on} {...togglerProps} />,
+      <Switch key='switch' id="switch" on={on} {...getTogglerProps()} />,
       <hr key='hr' />,
-      <button key="button" {...togglerProps}>
+      <button key="button" {...getTogglerProps({ onClick: () => alert('hi') })}>
         {on ? 'on' : 'off'}
       </button>
     ]}
