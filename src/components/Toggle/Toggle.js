@@ -4,32 +4,30 @@ import Switch from '../Switch'
 
 export const TOGGLE_CONTEXT = '__toggle__'
 
-export function ToggleOn({ children }, context) {
-  const { on } = context[TOGGLE_CONTEXT]
+const withToggle = (Component) => {
+  function Wrapper(props, context) {
+    const toggleContext = context[TOGGLE_CONTEXT]
+    return <Component {...toggleContext} {...props} />
+  }
+
+  Wrapper.contextTypes = {
+    [TOGGLE_CONTEXT]: PropTypes.object.isRequired
+  }
+
+  return Wrapper
+}
+
+const ToggleOn = withToggle(({ children, on }) => {
   return on ? children : null
-}
+})
 
-ToggleOn.contextTypes = {
-  [TOGGLE_CONTEXT]: PropTypes.object.isRequired
-}
-
-export function ToggleOff({ children }, context) {
-  const { on } = context[TOGGLE_CONTEXT]
+const ToggleOff = withToggle(({ children, on }) => {
   return on ? null : children
-}
+})
 
-ToggleOff.contextTypes = {
-  [TOGGLE_CONTEXT]: PropTypes.object.isRequired
-}
-
-export function ToggleButton(props, context) {
-  const { on, toggle } = context[TOGGLE_CONTEXT]
+const ToggleButton = withToggle(({ on, toggle, ...props }) => {
   return <Switch id="switch" on={on} onChange={toggle} {...props} />
-}
-
-ToggleButton.contextTypes = {
-  [TOGGLE_CONTEXT]: PropTypes.object.isRequired
-}
+})
 
 export default class Toggle extends Component {
   static On = ToggleOn
@@ -37,6 +35,8 @@ export default class Toggle extends Component {
   static Off = ToggleOff
 
   static Button = ToggleButton
+
+  static withToggle = withToggle
 
   static defaultProps = { onToggle: () => undefined };
 

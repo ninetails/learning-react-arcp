@@ -5,6 +5,11 @@ body {
   padding: 0;
 }
 
+hr {
+  height: 1px;
+  width: 50vw;
+}
+
 #root {
   align-items: center;
   display: flex;
