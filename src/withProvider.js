@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-const contextName = '__toggle__'
-
-const withProvider = Unprovided => {
+const withProvider = (Unprovided, { contextName, paramName } = {}) => {
   const ProviderConnected = (props, context) =>
     props.render(context[contextName])
 
@@ -14,8 +12,8 @@ const withProvider = Unprovided => {
   ProviderConnected.displayName = `ProviderConnected(${Unprovided.displayName || Unprovided.name})`
 
   const Provider = ({ children, ...props }) => (
-    <Unprovided {...props} render={toggle => (
-      <Provider.Renderer toggle={toggle} children={children} />
+    <Unprovided {...props} render={data => (
+      <Provider.Renderer {...{ [paramName]: data }} children={children} />
     )} />
   )
 
@@ -28,7 +26,7 @@ const withProvider = Unprovided => {
 
     getChildContext() {
       return {
-        [contextName]: this.props.toggle
+        [contextName]: this.props[paramName]
       }
     }
 

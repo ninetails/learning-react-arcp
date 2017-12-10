@@ -4,7 +4,7 @@ import withProvider from './withProvider'
 import Switch from './components/Switch'
 import Toggle from './components/Toggle'
 
-const ToggleProvider = withProvider(Toggle)
+const ToggleProvider = withProvider(Toggle, { contextName: '__toggle__', paramName: 'toggle' })
 
 const Header = () =>
   <ToggleProvider.Connected
