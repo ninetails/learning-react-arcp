@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+
+import Switch from './components/Switch'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        Hello World!
+        <Switch id="switch" />
       </div>
     );
   }
