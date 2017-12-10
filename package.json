@@ -1,0 +1,34 @@
+{
+  "name": "learning-react-arcp",
+  "version": "0.1.0",
+  "description": "Course by Egghead & Kent C. Dodds: https://egghead.io/courses/advanced-react-component-patterns",
+  "private": true,
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "^1.0.17"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninetails/learning-react-arcp.git"
+  },
+  "author": "Carlos Kazuo",
+  "keywords": [
+    "react",
+    "redux",
+    "patterns",
+    "egghead",
+    "Advanced React Component Patterns"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ninetails/learning-react-arcp/issues"
+  },
+  "homepage": "https://github.com/ninetails/learning-react-arcp#readme"
+}
