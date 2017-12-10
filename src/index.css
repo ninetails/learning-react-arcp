@@ -19,11 +19,14 @@ input[type=text] {
   text-align: center;
 }
 
-#root {
+.flex {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+#root {
   min-height: 100vh;
   min-width: 100vw;
 }

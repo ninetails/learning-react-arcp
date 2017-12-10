@@ -1,40 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import hoistNonReactStatics from 'hoist-non-react-statics'
+import { Broadcast, Subscriber } from 'react-broadcast'
 
-const withProvider = (Unprovided, { contextName, paramName } = {}) => {
+const withProvider = (Unprovided, { channel, paramName } = {}) => {
   const ProviderConnected = (props, context) =>
-    props.render(context[contextName])
-
-  ProviderConnected.contextTypes = {
-    [contextName]: PropTypes.object.isRequired
-  }
+    <Subscriber channel={channel} children={value => props.render(value)} />
 
   ProviderConnected.displayName = `ProviderConnected(${Unprovided.displayName || Unprovided.name})`
 
   const Provider = ({ children, ...props }) => (
-    <Unprovided {...props} render={data => (
-      <Provider.Renderer {...{ [paramName]: data }} children={children} />
+    <Unprovided {...props} render={value => (
+      <Broadcast channel={channel} value={value} children={children} />
     )} />
   )
-
-  Provider.Renderer = class extends Component {
-    static displayName = `ProviderRenderer(${Unprovided.displayName || Unprovided.name})`
-
-    static childContextTypes = {
-      [contextName]: PropTypes.object.isRequired
-    }
-
-    getChildContext() {
-      return {
-        [contextName]: this.props[paramName]
-      }
-    }
-
-    render() {
-      return this.props.children
-    }
-  }
 
   Provider.Connected = ProviderConnected
 

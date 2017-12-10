@@ -1,37 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import hoistNonReactStatics from 'hoist-non-react-statics'
 
-import withProvider from './withProvider'
+import ToggleProvider, { withToggle } from './ToggleProvider'
 import Switch from './components/Switch'
-import Toggle from './components/Toggle'
-
-const ToggleProvider = withProvider(Toggle, { contextName: '__toggle__', paramName: 'toggle' })
-
-const withToggle = Component => {
-  function Wrapper(props, context) {
-    const { innerRef, ...remainingProps } = props
-
-    return (
-      <ToggleProvider.Connected
-        render={toggle =>
-          <Component
-            {...remainingProps}
-            toggle={toggle}
-            />
-        }
-        />
-    )
-  }
-
-  Wrapper.displayName = `withToggle(${Component.displayName || Component.name})`
-
-  Wrapper.propTypes = { innerRef: PropTypes.func }
-
-  Wrapper.WrappedComponent = Component
-
-  return hoistNonReactStatics(Wrapper, Component)
-}
+import UpdateBlocker from './components/UpdateBlocker'
 
 const Header = ({ toggle }) => [
     <Switch key='switch' id="switch" {...toggle.getTogglerProps() } />,
@@ -52,9 +23,13 @@ const BodyWrapper = withToggle(Body)
 
 const App = () => (
   <ToggleProvider>
-    <HeaderWrapper />
-    <hr />
-    <BodyWrapper />
+    <div className="flex">
+      <HeaderWrapper />
+      <UpdateBlocker>
+        <hr />
+        <BodyWrapper />
+      </UpdateBlocker>
+    </div>
   </ToggleProvider>
 )
 
