@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import './App.css'
 
-import Switch from './components/Switch'
+import Toggle from './components/Toggle'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Switch id="switch" />
-      </div>
+      <Toggle onToggle={on => console.log('toggle', on)} />
     );
   }
 }
