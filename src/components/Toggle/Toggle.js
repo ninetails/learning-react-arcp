@@ -7,6 +7,7 @@ const compose = (...fns) =>
 
 export default class Toggle extends Component {
   static propTypes = {
+    on: PropTypes.bool,
     defaultOn: PropTypes.bool,
     onReset: PropTypes.func,
     onToggle: PropTypes.func
@@ -22,15 +23,25 @@ export default class Toggle extends Component {
 
   state = this.initialState
 
-  reset = () => this.setState(
-    () => this.initialState,
-    () => this.props.onReset(this.state.on)
-  )
+  isOnControlled() {
+    return this.props.on !== undefined
+  }
 
-  toggle = () => this.setState(
-    ({ on }) => ({ on: !on }),
-    () => this.props.onToggle(this.state.on)
-  )
+  reset = () =>
+    this.isOnControlled()
+      ? this.props.onReset(!this.props.on)
+      : this.setState(
+          () => this.initialState,
+          () => this.props.onReset(this.state.on)
+        )
+
+  toggle = () =>
+    this.isOnControlled()
+      ? this.props.onToggle(!this.props.on)
+      : this.setState(
+          ({ on }) => ({ on: !on }),
+          () => this.props.onToggle(this.state.on)
+        )
 
   getTogglerProps = ({ onClick, ...props } = {}) => ({
     'aria-expanded': this.state.on,
@@ -39,7 +50,7 @@ export default class Toggle extends Component {
   })
 
   render = () => this.props.render({
-    on: this.state.on,
+    on: this.isOnControlled() ? this.props.on : this.state.on,
     toggle: this.toggle,
     reset: this.reset,
     getTogglerProps: this.getTogglerProps
