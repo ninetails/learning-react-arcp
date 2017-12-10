@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 
 import Toggle from './components/Toggle'
 import MyToggle from './components/MyToggle'
+import MyEventComponent from './components/MyEventComponent'
 
 const MyToggleWrapped = Toggle.withToggle(MyToggle)
+
+const MyEventComponentWrapped = Toggle.withToggle(MyEventComponent)
 
 class App extends Component {
   render() {
@@ -13,7 +16,12 @@ class App extends Component {
         <Toggle.Off>The button is off</Toggle.Off>
         <Toggle.Button/>
         <hr/>
-        <MyToggleWrapped/>
+        <MyToggleWrapped />
+        <hr />
+        <MyEventComponentWrapped
+          event="onClick"
+          on={e => alert(e.type)}
+          />
       </Toggle>
     );
   }

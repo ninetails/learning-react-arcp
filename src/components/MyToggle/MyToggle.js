@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MyToggle = ({ on, toggle }) => (
+const MyToggle = ({ toggle: { on, toggle } }) => (
   <button onClick={toggle}>
     { on ? 'on' : 'off' }
   </button>
