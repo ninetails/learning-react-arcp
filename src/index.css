@@ -10,6 +10,15 @@ hr {
   width: 50vw;
 }
 
+input[type=text] {
+  clear: both;
+  display: block;
+}
+
+.center {
+  text-align: center;
+}
+
 #root {
   align-items: center;
   display: flex;
