@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import hoistNonReactStatics from 'hoist-non-react-statics'
 
 const withProvider = (Unprovided, { contextName, paramName } = {}) => {
   const ProviderConnected = (props, context) =>
@@ -39,7 +40,9 @@ const withProvider = (Unprovided, { contextName, paramName } = {}) => {
 
   Provider.displayName = `Provider(${Unprovided.displayName || Unprovided.name})`
 
-  return Provider
+  Provider.WrappedComponent = Unprovided
+
+  return hoistNonReactStatics(Provider, Unprovided)
 }
 
 export default withProvider
