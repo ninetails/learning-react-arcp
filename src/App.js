@@ -1,39 +1,33 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-import Toggle from './components/Toggle'
+import ToggleProvider, { ConnectedToggle } from './components/Toggle/ToggleProvider'
 import Switch from './components/Switch'
 
-export default class App extends Component {
-  initialState = { timesClicked: 0, on: false }
+const Header = () =>
+  <ConnectedToggle
+    render={toggle => [
+      <Switch key='switch' id="switch" {...toggle.getTogglerProps() } />,
+      <h1 key="h1">Hello {toggle.on ? (<span role="img" aria-label="World">🌎</span>) : 'World'}!</h1>
+    ]}
+    />
 
-  state = this.initialState
+const Body = () =>
+  <ConnectedToggle
+    render={({ on }) => [
+      <p key="paragraph" style={{ maxWidth: '80%' }}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis id odio porro quisquam! Accusantium facilis doloribus neque?
+      </p>,
+      <hr key='hr' />,
+      on ? (<div key="end" style={{ fontSize: '5em' }}><span role="img" aria-label="happy">😎</span></div>) : null
+    ]}
+    />
 
-  handleToggle = () => this.setState(({ timesClicked, on }) => ({
-    timesClicked: timesClicked + 1,
-    on: timesClicked >= 4 ? false : !on
-  }))
+const App = () => (
+  <ToggleProvider>
+    <Header />
+    <hr />
+    <Body />
+  </ToggleProvider>
+)
 
-  handleReset = () => this.setState(() => this.initialState)
-
-  render() {
-    const { timesClicked, on } = this.state
-
-    return (
-      <Toggle
-        on={on}
-        onToggle={on => console.log('toggle', on)}
-        onReset={on => console.log('reset', on)}
-        render={(toggle) => [
-          <Switch key='switch' id="switch" {...toggle.getTogglerProps({ on: toggle.on, onClick: this.handleToggle })} />,
-          <hr key='hr' />,
-          timesClicked > 4
-            ? [
-                'Clicked too much!',
-                <button key="reset" onClick={this.handleReset}>Reset</button>
-              ]
-            : `Clicks: ${timesClicked}`
-        ]}
-        />
-    )
-  }
-}
+export default App;
