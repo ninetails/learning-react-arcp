@@ -11,17 +11,12 @@ const MyEventComponentWrapped = Toggle.withToggle(MyEventComponent)
 class App extends Component {
   render() {
     return (
-      <Toggle onToggle={on => console.log('toggle', on)}>
+      <Toggle onToggle={on => on ? this.myToggle.focus() : undefined}>
         <Toggle.On>The button is on</Toggle.On>
         <Toggle.Off>The button is off</Toggle.Off>
         <Toggle.Button/>
         <hr/>
-        <MyToggleWrapped />
-        <hr />
-        <MyEventComponentWrapped
-          event="onClick"
-          on={e => alert(e.type)}
-          />
+        <MyToggleWrapped innerRef={myToggle => this.myToggle = myToggle} />
       </Toggle>
     );
   }

@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const MyToggle = ({ toggle: { on, toggle } }) => (
-  <button onClick={toggle}>
-    { on ? 'on' : 'off' }
-  </button>
-)
+export default class MyToggle extends Component {
+  focus = () => this.button.focus()
 
-export default MyToggle
+  render() {
+    const { toggle: { on, toggle } } = this.props
+
+    return (
+      <button
+        onClick={toggle}
+        ref={button => this.button = button}
+        >
+        { on ? 'on' : 'off' }
+      </button>
+    )
+  }
+}

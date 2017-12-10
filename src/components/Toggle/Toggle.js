@@ -5,9 +5,9 @@ import Switch from '../Switch'
 export const TOGGLE_CONTEXT = '__toggle__'
 
 const withToggle = (Component) => {
-  function Wrapper(props, context) {
+  function Wrapper({ innerRef, ...props }, context) {
     const toggleContext = context[TOGGLE_CONTEXT]
-    return <Component toggle={toggleContext} {...props} />
+    return <Component toggle={toggleContext} ref={innerRef} {...props} />
   }
 
   Wrapper.contextTypes = {
