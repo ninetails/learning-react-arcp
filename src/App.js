@@ -1,10 +1,13 @@
 import React from 'react'
 
-import ToggleProvider, { ConnectedToggle } from './components/Toggle/ToggleProvider'
+import withProvider from './withProvider'
 import Switch from './components/Switch'
+import Toggle from './components/Toggle'
+
+const ToggleProvider = withProvider(Toggle)
 
 const Header = () =>
-  <ConnectedToggle
+  <ToggleProvider.Connected
     render={toggle => [
       <Switch key='switch' id="switch" {...toggle.getTogglerProps() } />,
       <h1 key="h1">Hello {toggle.on ? (<span role="img" aria-label="World">🌎</span>) : 'World'}!</h1>
@@ -12,7 +15,7 @@ const Header = () =>
     />
 
 const Body = () =>
-  <ConnectedToggle
+  <ToggleProvider.Connected
     render={({ on }) => [
       <p key="paragraph" style={{ maxWidth: '80%' }}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis id odio porro quisquam! Accusantium facilis doloribus neque?
