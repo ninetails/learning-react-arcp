@@ -17,6 +17,8 @@ class App extends Component {
         <Toggle.Button/>
         <hr/>
         <MyToggleWrapped innerRef={myToggle => this.myToggle = myToggle} />
+        <hr/>
+        <MyToggleWrapped.ToggleMessage/>
       </Toggle>
     );
   }

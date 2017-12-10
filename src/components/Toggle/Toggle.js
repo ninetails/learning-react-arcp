@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import hoistNonReactStatic from 'hoist-non-react-statics';
 import Switch from '../Switch'
 
 export const TOGGLE_CONTEXT = '__toggle__'
@@ -16,7 +17,7 @@ const withToggle = (Component) => {
 
   Wrapper.displayName = `withToggle(${Component.displayName || Component.name})`
 
-  return Wrapper
+  return hoistNonReactStatic(Wrapper, Component)
 }
 
 const ToggleOn = ({ children, toggle: { on } }) =>

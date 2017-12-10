@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
+import Toggle from '../Toggle'
 
 export default class MyToggle extends Component {
+  static ToggleMessage = Toggle.withToggle(
+    ({ toggle: { on } }) =>
+      on
+        ? 'Warning: The button is toggled on'
+        : null
+  )
+
   focus = () => this.button.focus()
 
   render() {

@@ -8,7 +8,8 @@ Course URL: [Advanced React Component Patterns](https://egghead.io/courses/advan
 
 ## Notes
 
-I was mistaken about lesson order, so lessons 01 and 02 are 02 and 03 respectively
+* I was mistaken about lesson order, so lessons 01 and 02 are 02 and 03 respectively
+* Lesson 09 was skipped because it was about behavior on testing high order components
 
 -----
 
