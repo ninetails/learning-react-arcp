@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Switch.css'
 
-const Switch = ({ id, defaultChecked, on, ...props }) => {
+const Switch = ({ id, defaultChecked, on, onClick, onChange, ...props }) => {
   const check = {};
   if (typeof on === 'boolean') {
     check.checked = on;
@@ -12,12 +12,17 @@ const Switch = ({ id, defaultChecked, on, ...props }) => {
     check.defaultChecked = defaultChecked;
   }
 
+  if (onClick) {
+    onChange = onClick;
+  }
+
   return [
     <input
       className="switch__input"
       id={id}
       key={`${id}-input`}
       type="checkbox"
+      onChange={onChange}
       {...check}
       {...props}
       />,
