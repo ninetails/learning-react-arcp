@@ -1,48 +1,72 @@
 import React from 'react'
 
-import ToggleProvider, { withToggle } from './providers/ToggleProvider'
+import ReduxProvider, { withRedux } from './providers/ReduxProvider'
 import Switch from './components/Switch'
 import UpdateBlocker from './components/UpdateBlocker'
 
-const MySwitch = withToggle(
-  ({ toggle: { on, toggle, getTogglerProps } }) =>
-    <Switch id="switch" on={on} onChange={toggle} {...getTogglerProps() } />
+const MySwitch = withRedux(
+  ({ state, dispatch }) =>
+    <Switch
+      id="switch"
+      aria-expanded={state.on}
+      on={state.on}
+      onChange={() => dispatch({ type: 'toggle', value: !state.on })}
+      />
 )
 
-const MyInput = withToggle(
-  ({ toggle: { on, toggle } }) =>
+const MyInput = withRedux(
+  ({ state, dispatch }) =>
     <input
       type="text"
-      defaultValue={on ? 'on' : 'off'}
+      value={state.inputValue || (state.on ? 'on' : 'off')}
       placeholder="Type 'off' or 'on'"
       onChange={
         event => {
           if (event.target.value === 'on') {
-            toggle(true)
+            dispatch({ type: 'toggle', value: true })
           } else if (event.target.value === 'off') {
-            toggle(false)
+            dispatch({ type: 'toggle', value: false })
           }
+          dispatch({ type: 'input_change', value: event.target.value })
       }}
       />
 )
 
-const StatePrinter = withToggle(
-  ({ toggle }) => (
+const StatePrinter = withRedux(
+  ({ state }) => (
     <pre>
       state:{'\n\n'}
-      {JSON.stringify(toggle, null, '  ')}
+      {JSON.stringify(state, null, '  ')}
     </pre>
   )
 )
 
 const App = () => (
-  <ToggleProvider>
+  <ReduxProvider
+    initialState={{ on: true }}
+    reducer={(state, action) => {
+      switch (action.type) {
+        case 'toggle':
+          return {
+            ...state,
+            on: action.value
+          }
+        case 'input_change':
+          return {
+            ...state,
+            inputValue: action.value
+          }
+        default:
+          return state;
+      }
+    }}
+    >
     <UpdateBlocker>
       <MyInput />
       <MySwitch />
       <StatePrinter />
     </UpdateBlocker>
-  </ToggleProvider>
+  </ReduxProvider>
 )
 
 export default App;

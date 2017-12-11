@@ -2,7 +2,7 @@ import React from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import { Broadcast, Subscriber } from 'react-broadcast'
 
-const withProvider = (Unprovided, { channel, paramName } = {}) => {
+const withProvider = (Unprovided, { channel } = {}) => {
   const ProviderConnected = (props, context) =>
     <Subscriber channel={channel} children={value => props.render(value)} />
 
