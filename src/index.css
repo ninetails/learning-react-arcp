@@ -15,6 +15,11 @@ input[type=text] {
   display: block;
 }
 
+pre {
+  background-color: #ddd;
+  padding: 1em;
+}
+
 .center {
   text-align: center;
 }

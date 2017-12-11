@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import { Broadcast, Subscriber } from 'react-broadcast'
 

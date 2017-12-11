@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 
 import withProvider from './withProvider'
-import Toggle from './components/Toggle'
+import Toggle from '../components/Toggle'
 
 const ToggleProvider = withProvider(Toggle, { channel: '__toggle_channel__', paramName: 'toggle' })
 
@@ -15,6 +15,7 @@ export const withToggle = Component => {
       <ToggleProvider.Connected
         render={toggle =>
           <Component
+            ref={innerRef}
             {...remainingProps}
             toggle={toggle}
           />
